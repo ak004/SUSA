@@ -12,17 +12,26 @@
 
     <item
         android:id="@+id/cart"
-        android:icon="@drawable/ic_cart"
-        android:title="Cart"
-        app:cnb_backgroundColor="@color/colorPrimary"
+        android:icon="@drawable/graduation_cap"
+        android:title="Learn"
+        app:cnb_backgroundColor="@color/colorPrimaryDark"
         app:cnb_iconColor="#ffffff"
         app:cnb_textColor="#ffffff" />
 
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/ic_profile"
-        android:title="Profile"
-        app:cnb_backgroundColor="@color/colorPrimary"
+        android:icon="@drawable/bookmark_svg"
+        android:title="Bookmark"
+        app:cnb_backgroundColor="@color/blue"
         app:cnb_iconColor="#ffffff"
         app:cnb_textColor="#ffffff" />
+
+    <item
+        android:id="@+id/settingg"
+        android:icon="@drawable/setting_svg"
+        android:title="Setting"
+        app:cnb_backgroundColor="@color/celadon"
+        app:cnb_iconColor="#ffffff"
+        app:cnb_textColor="#ffffff" />
+
 </menu>

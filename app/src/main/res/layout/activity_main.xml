@@ -5,18 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
-        android:id="@+id/chipNavigation"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:cnb_menuResource="@menu/nav_item" />
+        android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/chipNavigation" />
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey_white"
+            android:layout_above="@+id/chipNavigation" />
+
+        <com.ismaeldivita.chipnavigation.ChipNavigationBar
+            android:id="@+id/chipNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/round_bottom_nav"
+            android:layout_marginHorizontal="20dp"
+            android:padding="7dp"
+            android:layout_alignParentBottom="true"
+            app:cnb_menuResource="@menu/nav_item" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
 
 </RelativeLayout>

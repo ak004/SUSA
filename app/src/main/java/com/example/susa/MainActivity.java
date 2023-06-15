@@ -30,10 +30,13 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new HomeFragment();
                         break;
                     case R.id.cart:
-                        fragment = new CartFragment();
+                        fragment = new LearnFragment();
                         break;
                     case R.id.profile:
-                        fragment = new ProfileFragment();
+                        fragment = new BookmarkFragment();
+                        break;
+                    case R.id.settingg:
+                        fragment = new SettingFragment();
                         break;
 
                 }
