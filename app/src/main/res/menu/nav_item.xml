@@ -6,7 +6,7 @@
         android:id="@+id/home2"
         android:icon="@drawable/ic_home"
         android:title="Home"
-        app:cnb_backgroundColor="@color/colorPrimary"
+        app:cnb_backgroundColor="@color/colorPrimaryDark"
         app:cnb_iconColor="#ffffff"
         app:cnb_textColor="#ffffff"
     />
@@ -26,7 +26,7 @@
         android:id="@+id/bookmarks"
         android:icon="@drawable/bookmark_svg"
         android:title="Bookmark"
-        app:cnb_backgroundColor="@color/blue"
+        app:cnb_backgroundColor="@color/colorPrimaryDark"
         app:cnb_iconColor="#ffffff"
         app:cnb_textColor="#ffffff"
     />
@@ -35,7 +35,7 @@
         android:id="@+id/settingg"
         android:icon="@drawable/setting_svg"
         android:title="Setting"
-        app:cnb_backgroundColor="@color/celadon"
+        app:cnb_backgroundColor="@color/colorPrimaryDark"
         app:cnb_iconColor="#ffffff"
         app:cnb_textColor="#ffffff"
     />

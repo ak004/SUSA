@@ -14,4 +14,6 @@
     <color name="color_primary_dark">@android:color/black</color>
     <color name="color_accent">#4285F4</color>
     <color name="semi_transparent">#66000000</color>
+    <color name="yellow">#FFD700</color>
+    <color name="darkslateblue">#191970</color>
 </resources>

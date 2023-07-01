@@ -18,9 +18,13 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:weightSum="2"
+             android:layout_marginHorizontal="20dp"
+             android:layout_marginVertical="30dp"
+             android:background="@drawable/round_bottom_nav"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/ongoing_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimaryDark"
@@ -31,6 +35,7 @@
                >
 
                <TextView
+                   android:id="@+id/ongoing_txt"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                   android:text="Ongoing"
@@ -44,6 +49,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/completed_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey_white"
@@ -54,6 +60,7 @@
                 >
 
                <TextView
+                   android:id="@+id/completed_txt"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Completed"
@@ -70,21 +77,85 @@
 
          </LinearLayout>
 
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="2dp"
-          android:background="@color/colorPrimaryDark"
-          android:layout_marginHorizontal="10dp"
-         />
+<!--      <View-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:layout_height="2dp"-->
+<!--          android:background="@color/colorPrimaryDark"-->
+<!--          android:layout_marginHorizontal="10dp"-->
+<!--         />-->
 
 
       <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/"
+          android:id="@+id/ongoing_course_rec"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="match_parent"
+          android:visibility="visible"
          android:orientation="vertical"/>
 
+      <LinearLayout
+          android:id="@+id/no_ongoing_found"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:visibility="gone"
+          android:layout_gravity="center"
+         android:orientation="vertical">
 
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="260dp"
+             android:src="@drawable/page_not_found"
+            android:layout_margin="40dp"/>
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+            android:text="No ongoing course could be found please enroll new courses"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="18dp"/>
+
+
+
+
+      </LinearLayout>
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/completed_course_rec"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:visibility="gone"
+          android:orientation="vertical"/>
+
+      <LinearLayout
+          android:id="@+id/no_completedfound"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:visibility="gone"
+          android:layout_gravity="center"
+          android:orientation="vertical">
+
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="260dp"
+             android:src="@drawable/completed_empty"
+             android:layout_margin="40dp"/>
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="You still haven't  completed any course yet. Try harder"
+             android:layout_gravity="center"
+             android:gravity="center"
+             android:fontFamily="@font/roboto_bold"
+             android:textSize="18dp"/>
+
+
+
+
+      </LinearLayout>
 
 
 
