@@ -140,6 +140,7 @@
                     android:layout_height="wrap_content"
                     android:text="$ 99.0"
                     android:fontFamily="@font/roboto"
+                    android:visibility="invisible"
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold"
                     android:layout_gravity="center"
@@ -344,6 +345,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/enroll_btn"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:text="Enroll Now"
