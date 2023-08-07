@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ChipNavigationBar chipNavigationBar;
     private Fragment fragment = null;
+    SharedPreferencesData sharedPreferencesData;
 
     private int homee = R.id.home2;
 
@@ -20,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        sharedPreferencesData = SharedPreferencesData.getInstance(this);
+        sharedPreferencesData.putuser_id("6454bb2b93c5296f82b71445");
 
 
         chipNavigationBar = findViewById(R.id.chipNavigation);

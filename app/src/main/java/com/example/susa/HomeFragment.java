@@ -8,13 +8,22 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.susa.Adapter.CatagoriesAdapter;
 import com.example.susa.Adapter.CourseAdapter;
+import com.example.susa.Web_service.ApiClient;
+import com.example.susa.Web_service.ApiInterface;
+import com.example.susa.models.JsonObjectModalResponse;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +43,8 @@ public class HomeFragment extends Fragment {
 
     RecyclerView cat_rec, course_rec, mentor_rec;
     CatagoriesAdapter catagoriesAdapter;
+    SharedPreferencesData sharedPreferencesData;
+    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
     CourseAdapter courseAdapter;
 
@@ -62,6 +73,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferencesData = SharedPreferencesData.getInstance(getContext());
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -89,14 +102,61 @@ public class HomeFragment extends Fragment {
         course_rec.setLayoutManager(layoutManager2);
         cat_rec.setLayoutManager(layoutManager);
         mentor_rec.setLayoutManager(layoutManager3);
+
+        getCatagories(sharedPreferencesData.getUSER_id());
             JsonArray ja = new JsonArray();
-        catagoriesAdapter = new CatagoriesAdapter(ja,getContext());
-        cat_rec.setAdapter(catagoriesAdapter);
         mentor_rec.setAdapter(catagoriesAdapter);
 
-        courseAdapter = new CourseAdapter(ja,getContext());
-        course_rec.setAdapter(courseAdapter);
 
+        getCourses(sharedPreferencesData.getUSER_id());
+    }
+
+
+    private void getCatagories(String user_id) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("user_id",user_id);
+        Call<JsonObjectModalResponse> call = apiInterface.get_catagories(jsonObject);
+        call.enqueue(new Callback<JsonObjectModalResponse>() {
+            @Override
+            public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
+                if (response.isSuccessful()) {
+                    new JsonArray();
+                    JsonArray ja;
+                    ja = response.body().getRecord().get("data").getAsJsonArray();
+                    catagoriesAdapter = new CatagoriesAdapter(ja,getContext());
+                    cat_rec.setAdapter(catagoriesAdapter);
+                }
+            }
+            //check something
+            @Override
+            public void onFailure(Call<JsonObjectModalResponse> call, Throwable t) {
+                Log.d("sliding_category", t.getMessage());
+            }
+        });
+    }
+
+
+    private void getCourses(String user_id) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("user_id",user_id);
+        Call<JsonObjectModalResponse> call = apiInterface.getCourses(jsonObject);
+        call.enqueue(new Callback<JsonObjectModalResponse>() {
+            @Override
+            public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
+                if (response.isSuccessful()) {
+                    new JsonArray();
+                    JsonArray ja;
+                    ja = response.body().getRecord().get("data").getAsJsonArray();
+                    courseAdapter = new CourseAdapter(ja,getContext());
+                    course_rec.setAdapter(courseAdapter);
+                }
+            }
+            //check something
+            @Override
+            public void onFailure(Call<JsonObjectModalResponse> call, Throwable t) {
+                Log.d("sliding_category", t.getMessage());
+            }
+        });
     }
 
 
