@@ -19,7 +19,8 @@ public class VideoPlayerActiviy extends AppCompatActivity {
 
     //    String videoURL = "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4";
 //String videoURL = "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4";
-    String videoURL = "https://uploads.dhaweeye.com/Imagine+for+1+Minute.mp4";
+//    String videoURL = "https://uploads.dhaweeye.com/Imagine+for+1+Minute.mp4";
+    String videoURL = "http://192.168.1.11:3000/vids/1689788654864_VID-20230102-WA0001.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
