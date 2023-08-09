@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.susa.Adapter.CatagoriesAdapter;
 import com.example.susa.Adapter.CourseAdapter;
@@ -120,11 +121,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
                 if (response.isSuccessful()) {
-                    new JsonArray();
-                    JsonArray ja;
-                    ja = response.body().getRecord().get("data").getAsJsonArray();
-                    catagoriesAdapter = new CatagoriesAdapter(ja,getContext());
-                    cat_rec.setAdapter(catagoriesAdapter);
+                    Log.d("theresss", "THe res pnms is: "+ response.body().getRecord());
+                    if(response.body().isSuccess()) {
+                        JsonArray ja;
+                        ja = response.body().getRecord().get("data").getAsJsonArray();
+                        catagoriesAdapter = new CatagoriesAdapter(ja,getContext());
+                        cat_rec.setAdapter(catagoriesAdapter);
+                    }else {
+                        Toast.makeText(getContext(), "THERE IS NO CATEGORIES", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             //check something
@@ -144,11 +149,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
                 if (response.isSuccessful()) {
-                    new JsonArray();
-                    JsonArray ja;
-                    ja = response.body().getRecord().get("data").getAsJsonArray();
-                    courseAdapter = new CourseAdapter(ja,getContext());
-                    course_rec.setAdapter(courseAdapter);
+
+                    if (response.body().isSuccess()) {
+                        JsonArray ja;
+                        ja = response.body().getRecord().get("data").getAsJsonArray();
+                        courseAdapter = new CourseAdapter(ja,getContext());
+                        course_rec.setAdapter(courseAdapter);
+                    }else {
+                        Toast.makeText(getContext(), "THERE IS NO COURSE", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
             //check something

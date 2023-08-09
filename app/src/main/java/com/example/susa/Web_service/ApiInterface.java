@@ -18,4 +18,7 @@ public interface ApiInterface {
 
     @POST("get_course_details")
     Call<JsonObjectModalResponse> get_course_details(@Body JsonObject requestBody);
+
+    @POST("get_vid_details")
+    Call<JsonObjectModalResponse> vid_details(@Body JsonObject requestBody);
 }

@@ -30,6 +30,7 @@
                 app:cardCornerRadius="20dp">
 
                 <ImageView
+                    android:id="@+id/vid_img"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:src="@drawable/marketing_cat"
@@ -40,6 +41,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/vid_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name of the lesson goes here "

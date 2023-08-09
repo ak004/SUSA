@@ -24,6 +24,7 @@
             />
 
         <TextView
+            android:id="@+id/vid_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Video name goes here"
@@ -38,6 +39,7 @@
             app:cardCornerRadius="20dp">
 
             <ImageView
+                android:id="@+id/vid_men"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@drawable/programmng_cat_2"
@@ -50,6 +52,12 @@
     </LinearLayout>
 
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -72,6 +80,7 @@
                 android:textSize="16dp"/>
 
             <TextView
+                android:id="@+id/vid_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et ipsum massa. Quisque vel molestie elit, sit amet dapibus neque. Cras sapien ex, facilisis eu ultrices sit amet, eleifend vel massa. Phasellus metus tellus, feugiat eget ipsum ut, facilisis vestibulum arcu. Ut venenatis urna et nisi lobortis semper. Donec imperdiet sem sit amet convallis bibendum. Aliquam varius ligula velit"
@@ -89,6 +98,7 @@
                 >
 
                 <ImageView
+                    android:id="@+id/play_vid"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:src="@drawable/design_cat"
@@ -98,7 +108,6 @@
                     android:layout_height="250dp"
                     android:background="@drawable/dim_linear" />
                 <ImageView
-                    android:id="@+id/play_vid"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/play_one"

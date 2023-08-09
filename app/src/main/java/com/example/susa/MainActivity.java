@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedPreferencesData = SharedPreferencesData.getInstance(this);
-        sharedPreferencesData.putuser_id("6454bb2b93c5296f82b71445");
+//        sharedPreferencesData.putuser_id("6454bb2b93c5296f82b71445");
+        sharedPreferencesData.putuser_id("644a11ce462c5ae45c83e93f");
 
 
         chipNavigationBar = findViewById(R.id.chipNavigation);

@@ -25,6 +25,7 @@
             />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Design UI/UX"
@@ -39,6 +40,7 @@
             app:cardCornerRadius="20dp">
 
             <ImageView
+                android:id="@+id/mento_img"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@drawable/programmng_cat_2"
@@ -49,6 +51,14 @@
 
 
     </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -69,6 +79,7 @@
                 >
 
                 <ImageView
+                    android:id="@+id/course_img"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:src="@drawable/design_cat"
@@ -109,6 +120,7 @@
                     android:layout_gravity="center"
                     />
                 <TextView
+                    android:id="@+id/views"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="125"
@@ -135,6 +147,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
+                    android:id="@+id/amount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="$ 99.0"
@@ -150,6 +163,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Descrption"
@@ -160,6 +174,7 @@
                 android:textSize="16dp"/>
 
             <TextView
+                android:id="@+id/deese"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et ipsum massa. Quisque vel molestie elit, sit amet dapibus neque. Cras sapien ex, facilisis eu ultrices sit amet, eleifend vel massa. Phasellus metus tellus, feugiat eget ipsum ut, facilisis vestibulum arcu. Ut venenatis urna et nisi lobortis semper. Donec imperdiet sem sit amet convallis bibendum. Aliquam varius ligula velit"

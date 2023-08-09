@@ -1,6 +1,10 @@
 package com.example.susa;
 
+import static com.example.susa.Web_service.ApiClient.Base_image_url;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.media.browse.MediaBrowser;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +15,9 @@ import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.ext.ima.ImaAdsLoader;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class VideoPlayerActiviy extends AppCompatActivity {
 
     private StyledPlayerView playerView;
@@ -20,18 +27,23 @@ public class VideoPlayerActiviy extends AppCompatActivity {
     //    String videoURL = "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4";
 //String videoURL = "https://media.geeksforgeeks.org/wp-content/uploads/20201217163353/Screenrecorder-2020-12-17-16-32-03-350.mp4";
 //    String videoURL = "https://uploads.dhaweeye.com/Imagine+for+1+Minute.mp4";
-    String videoURL = "http://192.168.1.11:3000/vids/1689788654864_VID-20230102-WA0001.mp4";
+    String videoURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player_activiy);
 
+        String encodedVideoURL = "";
+        Intent intent = getIntent();
+        videoURL =  intent.getStringExtra("the_path");
+        String modifiedVideoURL = videoURL.replace("+", " ");
         playerView = findViewById(R.id.playerview);
 
         player  = new ExoPlayer.Builder(VideoPlayerActiviy.this).build();
         playerView.setPlayer(player);
-        MediaItem mediaItem = MediaItem.fromUri(videoURL);
+        Log.d("theurlww", "the url is: " +  modifiedVideoURL);
+        MediaItem mediaItem = MediaItem.fromUri(Base_image_url + modifiedVideoURL );
         player.setMediaItem(mediaItem);
         player.prepare();
         player.setPlayWhenReady(true);

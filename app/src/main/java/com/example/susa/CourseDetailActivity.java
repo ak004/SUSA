@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,7 @@ import com.example.susa.Web_service.ApiClient;
 import com.example.susa.Web_service.ApiInterface;
 import com.example.susa.models.JsonObjectModalResponse;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -34,6 +36,7 @@ public class CourseDetailActivity extends AppCompatActivity {
     SharedPreferencesData sharedPreferencesData;
     AppCompatButton enroll_btn;
     String Course_id;
+    ProgressBar progress_circular;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     ImageView mentore_img,image_v1;
     TextView views_num,Title_txt,discrepition,hourse_of,no_of_lessions,num_resoursces;
@@ -52,6 +55,8 @@ public class CourseDetailActivity extends AppCompatActivity {
         hourse_of = findViewById(R.id.hourse_of);
         no_of_lessions = findViewById(R.id.no_of_lessions);
         num_resoursces = findViewById(R.id.num_resoursces);
+        progress_circular = findViewById(R.id.progress_circular);
+
         sharedPreferencesData = SharedPreferencesData.getInstance(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(CourseDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
@@ -67,6 +72,7 @@ public class CourseDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CourseDetailActivity.this,LessonsActivity.class);
+                intent.putExtra("course_id",Course_id );
                 startActivity(intent);
             }
         });
@@ -74,7 +80,7 @@ public class CourseDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Course_id = intent.getStringExtra("course_id");
 
-
+        progress_circular.setVisibility(View.VISIBLE);
         get_course_details(Course_id, sharedPreferencesData.getUSER_id());
     }
 
@@ -91,11 +97,18 @@ public class CourseDetailActivity extends AppCompatActivity {
                     JsonArray ja;
                     ja = response.body().getRecord().get("data").getAsJsonArray();
                     JsonObject jo = ja.get(0).getAsJsonObject();
-
+                    progress_circular.setVisibility(View.GONE);
                     Title_txt.setText(jo.get("title").getAsString());
                     views_num.setText(jo.get("likes").getAsString());
                     discrepition.setText(jo.get("discription").getAsString());
-                    Integer sec = jo.get("total_duration").getAsInt();
+                    Integer sec;
+                    JsonElement totalDurationElement = jo.get("total_duration");
+                    if (totalDurationElement != null && !totalDurationElement.isJsonNull()) {
+                        sec = totalDurationElement.getAsInt();
+                    } else {
+                        sec = 0;
+                    }
+
 
                     hourse_of.setText( sec / 60 + " Minutes of Content");
                     no_of_lessions.setText("Total of " + jo.get("no_of_vids").getAsString() + " Lessons");
