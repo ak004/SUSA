@@ -55,9 +55,7 @@ public class VideoContentActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         attachments_rec.setLayoutManager(layoutManager);
-        JsonArray ja = new JsonArray();
-        attachmentsAdapter = new AttachmentsAdapter( ja,this);
-        attachments_rec.setAdapter(attachmentsAdapter);
+
 
 
 
@@ -109,8 +107,8 @@ public class VideoContentActivity extends AppCompatActivity {
                                 .placeholder(R.drawable.image_placeholder)
                                 .into(vid_men);
 
-//                        lessonsAdapter = new LessonsAdapter(jo.get("videos").getAsJsonArray(),VideoContentActivity.this);
-//                        lessons_rec.setAdapter(lessonsAdapter);
+                        attachmentsAdapter = new AttachmentsAdapter(jo.get("attachments").getAsJsonArray(),VideoContentActivity.this);
+                        attachments_rec.setAdapter(attachmentsAdapter);
                     }else {
                         Toast.makeText(VideoContentActivity.this, "Couldnt find data try again", Toast.LENGTH_SHORT).show();
                     }
