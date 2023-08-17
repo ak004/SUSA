@@ -24,8 +24,8 @@ public class    ApiClient {
     public static final String Tag = "ApiClient";
     private static MediaType MEDIA_TYPE_TEXT = MediaType.parse("multipart/form-data");
     private static Retrofit retrofit = null;
-    private static String BASE_URL = "http://10.111.101.15:3000/api/";
-    public static String Base_image_url = "http://10.111.101.15:3000/";
+    private static String BASE_URL = "http://192.168.100.133:3000/api/";
+    public static String Base_image_url = "http://192.168.100.133:3000/";
 
 //    private static String BASE_URL = "https://sl.hiraabe.com/api/";
 //    public static String Base_image_url = "https://sl.hiraabe.com/";

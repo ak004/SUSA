@@ -39,7 +39,7 @@ public class CourseDetailActivity extends AppCompatActivity {
     ProgressBar progress_circular;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     ImageView mentore_img,image_v1;
-    TextView views_num,Title_txt,discrepition,hourse_of,no_of_lessions,num_resoursces;
+    TextView views_num,Title_txt,discrepition,hourse_of,no_of_lessions,num_resoursces,cours_amount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class CourseDetailActivity extends AppCompatActivity {
         no_of_lessions = findViewById(R.id.no_of_lessions);
         num_resoursces = findViewById(R.id.num_resoursces);
         progress_circular = findViewById(R.id.progress_circular);
-
+        cours_amount = findViewById(R.id.cours_amount);
         sharedPreferencesData = SharedPreferencesData.getInstance(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(CourseDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
@@ -100,6 +100,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                     progress_circular.setVisibility(View.GONE);
                     Title_txt.setText(jo.get("title").getAsString());
                     views_num.setText(jo.get("likes").getAsString());
+                    cours_amount.setText("$" + jo.get("amount").getAsString());
                     discrepition.setText(jo.get("discription").getAsString());
                     Integer sec;
                     JsonElement totalDurationElement = jo.get("total_duration");

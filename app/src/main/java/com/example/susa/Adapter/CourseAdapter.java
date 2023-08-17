@@ -4,6 +4,7 @@ import static com.example.susa.Web_service.ApiClient.Base_image_url;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -50,7 +52,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 context.startActivity(intent);
             }
         });
-
+        boolean isBookmarked = false;
         holder.cat_title.setText(listItem.get("cat").getAsJsonObject().get("title").getAsString());
         holder.txt_title.setText(listItem.get("title").getAsString());
         holder.mentor_name.setText("By " + listItem.get("mentor").getAsJsonObject().get("name").getAsString());
@@ -60,7 +62,26 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 .placeholder(R.drawable.image_placeholder)
                 .into(holder.img_v);
 
+
+        holder.book_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Drawable bookmarkBorderDrawable = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.baseline_bookmark_border_24);
+                Drawable bookmarkDrawable = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.baseline_bookmark_24);
+
+                Drawable currentDrawable = holder.book_icon.getDrawable();
+                if (currentDrawable != null) {
+                    if (currentDrawable.getConstantState() == bookmarkBorderDrawable.getConstantState()) {
+                        holder.book_icon.setImageDrawable(bookmarkDrawable);
+                    } else {
+                        holder.book_icon.setImageDrawable(bookmarkBorderDrawable);
+                    }
+                }
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -71,7 +92,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
 
         TextView txt_title,mentor_name,cat_title;
-        ImageView img_v;
+        ImageView img_v,book_icon;
 
         CardView course_img;
         public ViewHolder(@NonNull View itemView) {
@@ -82,6 +103,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             txt_title = itemView.findViewById(R.id.txt_title);
             mentor_name = itemView.findViewById(R.id.mentor_name);
             cat_title = itemView.findViewById(R.id.cat_title);
+            book_icon = itemView.findViewById(R.id.book_icon);
         }
     }
 }

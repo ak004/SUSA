@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -53,8 +54,13 @@ public class LessonsAdapter extends RecyclerView.Adapter<LessonsAdapter.ViewHold
         holder.lesson_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String is_it_last = "0";
+                if(ja.size()-1 == position) {
+                    is_it_last = "1";
+                }
                 Intent intent = new Intent(context, VideoContentActivity.class);
                 intent.putExtra("vid_id", listItem.get("_id").getAsString());
+                intent.putExtra("is_it_last", is_it_last);
                 context.startActivity(intent);
             }
         });

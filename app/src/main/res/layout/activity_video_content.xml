@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context=".VideoContentActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,97 +51,135 @@
 
 
     </LinearLayout>
-
-
     <ProgressBar
         android:id="@+id/progress_circular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         />
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
 
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Notes"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginHorizontal="20dp"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/vid_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et ipsum massa. Quisque vel molestie elit, sit amet dapibus neque. Cras sapien ex, facilisis eu ultrices sit amet, eleifend vel massa. Phasellus metus tellus, feugiat eget ipsum ut, facilisis vestibulum arcu. Ut venenatis urna et nisi lobortis semper. Donec imperdiet sem sit amet convallis bibendum. Aliquam varius ligula velit"
+                    android:layout_margin="20dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/grey"
+                    android:gravity="start"/>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    android:layout_marginHorizontal="20dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/play_vid"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:src="@drawable/design_cat"
+                        android:scaleType="centerCrop"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="@drawable/dim_linear" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/play_one"
+                        app:tint="@color/white"
+                        android:layout_margin="80dp"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Attachments"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/attachments_rec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="80dp"
+                    android:orientation="vertical"/>
+
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/completed_btn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notes"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:fontFamily="@font/roboto_bold"
-                android:layout_marginHorizontal="20dp"
-                android:textSize="16dp"/>
-
-            <TextView
-                android:id="@+id/vid_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et ipsum massa. Quisque vel molestie elit, sit amet dapibus neque. Cras sapien ex, facilisis eu ultrices sit amet, eleifend vel massa. Phasellus metus tellus, feugiat eget ipsum ut, facilisis vestibulum arcu. Ut venenatis urna et nisi lobortis semper. Donec imperdiet sem sit amet convallis bibendum. Aliquam varius ligula velit"
-                android:layout_margin="20dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/round_bottom_nav"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="Mark This Course as Complete"
+                android:textAllCaps="false"
+                android:layout_weight="1"
                 android:fontFamily="@font/roboto"
-                android:textColor="@color/grey"
-                android:gravity="start"/>
-
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+                android:textColor="@color/white"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/ask_ai_btn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                android:layout_marginHorizontal="20dp"
-                >
-
-                <ImageView
-                    android:id="@+id/play_vid"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:src="@drawable/design_cat"
-                    android:scaleType="centerCrop"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:background="@drawable/dim_linear" />
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/play_one"
-                    app:tint="@color/white"
-                    android:layout_margin="80dp"
-                    />
-
-            </androidx.cardview.widget.CardView>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Attachments"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:fontFamily="@font/roboto_bold"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:textSize="16dp"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/attachments_rec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
-
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/round_bottom_nav"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Ask sir AI"
+                android:textAllCaps="false"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
-
-    </androidx.core.widget.NestedScrollView>
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 </LinearLayout>

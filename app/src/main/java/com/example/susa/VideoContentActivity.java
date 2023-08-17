@@ -3,6 +3,7 @@ package com.example.susa;
 import static com.example.susa.Web_service.ApiClient.Base_image_url;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,8 +37,10 @@ public class VideoContentActivity extends AppCompatActivity {
     SharedPreferencesData sharedPreferencesData;
     ImageView play_vid, vid_men;
     TextView vid_name,vid_desc;
-    String vid_id, vid_url;
+    String vid_id, vid_url, is_last;
     ProgressBar progress_circular;
+
+    AppCompatButton completed_btn,ask_ai_btn;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
     @Override
@@ -52,7 +55,8 @@ public class VideoContentActivity extends AppCompatActivity {
         vid_men = findViewById(R.id.vid_men);
         vid_name = findViewById(R.id.vid_name);
         vid_desc = findViewById(R.id.vid_desc);
-
+        completed_btn = findViewById(R.id.completed_btn);
+        ask_ai_btn = findViewById(R.id.ask_ai_btn);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         attachments_rec.setLayoutManager(layoutManager);
 
@@ -71,6 +75,12 @@ public class VideoContentActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         vid_id = intent.getStringExtra("vid_id");
+        is_last = intent.getStringExtra("is_it_last");
+        if(is_last.equalsIgnoreCase("1")) {
+            completed_btn.setVisibility(View.VISIBLE);
+        }else {
+            completed_btn.setVisibility(View.INVISIBLE);
+        }
         progress_circular.setVisibility(View.VISIBLE);
         get_course_details(vid_id, sharedPreferencesData.getUSER_id());
 
