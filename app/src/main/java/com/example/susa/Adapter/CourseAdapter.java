@@ -5,6 +5,7 @@ import static com.example.susa.Web_service.ApiClient.Base_image_url;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.susa.CourseDetailActivity;
 import com.example.susa.R;
+import com.example.susa.SharedPreferencesData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import java.util.Set;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
 
 
     JsonArray ja;
     Context context;
+    SharedPreferencesData sharedPreferencesData;
 
     public CourseAdapter(JsonArray ja, Context context) {
         this.ja = ja;
@@ -43,6 +48,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull CourseAdapter.ViewHolder holder, int position) {
         final JsonObject listItem = ja.get(position).getAsJsonObject();
+        sharedPreferencesData = SharedPreferencesData.getInstance(context);
+        Set<String> bookmarkedIds = sharedPreferencesData.getBookmarkedIds();
+
 
         holder.course_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,26 +70,41 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 .placeholder(R.drawable.image_placeholder)
                 .into(holder.img_v);
 
+        updateBookmarkDrawable(holder.book_icon, bookmarkedIds.contains(listItem.get("_id").getAsString()));
 
         holder.book_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Drawable bookmarkBorderDrawable = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.baseline_bookmark_border_24);
                 Drawable bookmarkDrawable = ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.baseline_bookmark_24);
 
-                Drawable currentDrawable = holder.book_icon.getDrawable();
-                if (currentDrawable != null) {
-                    if (currentDrawable.getConstantState() == bookmarkBorderDrawable.getConstantState()) {
-                        holder.book_icon.setImageDrawable(bookmarkDrawable);
-                    } else {
-                        holder.book_icon.setImageDrawable(bookmarkBorderDrawable);
-                    }
+                String tag = holder.book_icon.getTag().toString();
+                if ("bookmark_border".equals(tag)) {
+                    holder.book_icon.setTag("bookmark");
+                    holder.book_icon.setImageDrawable(bookmarkDrawable);
+                    bookmarkedIds.add(listItem.get("_id").getAsString());
+                } else if ("bookmark".equals(tag)) {
+                    holder.book_icon.setTag("bookmark_border");
+                    holder.book_icon.setImageDrawable(bookmarkBorderDrawable);
+                    bookmarkedIds.remove(listItem.get("_id").getAsString());
+
                 }
+
+                sharedPreferencesData.putBookmarkedIds(bookmarkedIds);
+                updateBookmarkDrawable(holder.book_icon, bookmarkedIds.contains(listItem.get("_id").getAsString()));
+                Log.d("get_booked_id", sharedPreferencesData.getBookmarkedIds() + " Ths ");
             }
         });
     }
 
-
+    private void updateBookmarkDrawable(ImageView imageView, boolean isBookmarked) {
+        if (isBookmarked) {
+            imageView.setImageResource(R.drawable.baseline_bookmark_24);
+        } else {
+            imageView.setImageResource(R.drawable.baseline_bookmark_border_24);
+        }
+    }
 
     @Override
     public int getItemCount() {

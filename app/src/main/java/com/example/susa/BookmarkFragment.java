@@ -8,12 +8,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.susa.Adapter.BookmarkAdapter;
+import com.example.susa.Adapter.CatagoriesAdapter;
+import com.example.susa.Web_service.ApiClient;
+import com.example.susa.Web_service.ApiInterface;
+import com.example.susa.models.JsonObjectModalResponse;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +43,8 @@ public class BookmarkFragment extends Fragment {
     RecyclerView bookmark_rec;
 
     BookmarkAdapter bookmarkAdapter;
+    SharedPreferencesData sharedPreferencesData;
+    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -63,6 +78,8 @@ public class BookmarkFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            sharedPreferencesData = SharedPreferencesData.getInstance(getContext());
+
         }
     }
 
@@ -76,7 +93,7 @@ public class BookmarkFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        sharedPreferencesData = SharedPreferencesData.getInstance(getContext());
         bookmark_rec = view.findViewById(R.id.bookmark_rec);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -84,10 +101,41 @@ public class BookmarkFragment extends Fragment {
         bookmark_rec.setLayoutManager(layoutManager);
 
 
-        JsonArray ja = new JsonArray();
 
-        bookmarkAdapter = new BookmarkAdapter(ja,getContext());
-        bookmark_rec.setAdapter(bookmarkAdapter);
+
+        get_bookmarks_course(sharedPreferencesData.getUSER_id(), sharedPreferencesData.getBookmarkedIds());
+
+
 
     }
+
+
+    private void get_bookmarks_course(String user_id, Set<String> ids) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("user_id",user_id);
+        jsonObject.addProperty("_ids", String.valueOf(ids));
+        Call<JsonObjectModalResponse> call = apiInterface.get_selected_course(jsonObject);
+        call.enqueue(new Callback<JsonObjectModalResponse>() {
+            @Override
+            public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.d("theresss", "THe res pnms is: "+ response.body().getRecord());
+                    if(response.body().isSuccess()) {
+                        JsonArray ja;
+                        ja = response.body().getRecord().get("data").getAsJsonArray();
+                        bookmarkAdapter = new BookmarkAdapter(ja,getContext());
+                        bookmark_rec.setAdapter(bookmarkAdapter);
+                    }else {
+                        Toast.makeText(getContext(), "THERE IS NO CATEGORIES", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            //check something
+            @Override
+            public void onFailure(Call<JsonObjectModalResponse> call, Throwable t) {
+                Log.d("sliding_category", t.getMessage());
+            }
+        });
+    }
+
 }

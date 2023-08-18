@@ -354,6 +354,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
+        android:id="@+id/enroll_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/top_round_boders"
@@ -386,10 +387,12 @@
             app:cardCornerRadius="15dp"
             >
             <ImageView
+                android:id="@+id/bookmark_svgs"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/bookmark_svg"
                 android:layout_margin="10dp"
+                android:tag="bookmark_border"
                 />
 
 

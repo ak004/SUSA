@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by Mohamed daahir faarah->615774091 on 04/07/2020.
  */
@@ -107,5 +110,16 @@ public class SharedPreferencesData {
     public String getfrom() {
         return savelifePreference.getString(from, "");
     }
+    public void putBookmarkedIds(Set<String> bookmarkedIds) {
+        SharedPreferences.Editor editor = savelifePreference.edit();
+        editor.putStringSet("bookmarked_ids", bookmarkedIds);
+        editor.apply();
+    }
+
+    public Set<String> getBookmarkedIds() {
+        return savelifePreference.getStringSet("bookmarked_ids", new HashSet<>());
+    }
+
+
 
 }

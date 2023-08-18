@@ -39,19 +39,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_bottom_nav"
-                    android:text="Desgin"
+                    android:text="Other"
                     android:paddingHorizontal="10dp"
                     android:backgroundTint="@color/white"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"/>
 
 
+
                 <ImageView
                     android:id="@+id/book_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/baseline_bookmark_border_24"
                     android:layout_gravity="right"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:tag="bookmark_border"
                     android:layout_margin="10dp"
                     app:tint="@color/yellow" />
 

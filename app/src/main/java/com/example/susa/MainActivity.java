@@ -22,9 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedPreferencesData = SharedPreferencesData.getInstance(this);
-//        sharedPreferencesData.putuser_id("6454bb2b93c5296f82b71445");
-        sharedPreferencesData.putuser_id("64ddb0116127693946021a59");
-
+        //this from computer
+//        sharedPreferencesData.putuser_id("64ddb0116127693946021a59");
+        // this from the laptop
+        sharedPreferencesData.putuser_id("6454bb2b93c5296f82b71445");
 
         chipNavigationBar = findViewById(R.id.chipNavigation);
 

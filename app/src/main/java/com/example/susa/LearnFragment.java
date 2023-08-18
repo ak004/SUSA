@@ -11,14 +11,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.susa.Adapter.CourseAdapter;
 import com.example.susa.Adapter.OngoingAndCompletedAdapter;
+import com.example.susa.Web_service.ApiClient;
+import com.example.susa.Web_service.ApiInterface;
+import com.example.susa.models.JsonObjectModalResponse;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +52,8 @@ public class LearnFragment extends Fragment {
     LinearLayout no_ongoing_found,no_completedfound;
     CardView ongoing_card,completed_card;
     TextView completed_txt,ongoing_txt;
+    SharedPreferencesData sharedPreferencesData;
+    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
 
 
@@ -69,6 +82,8 @@ public class LearnFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferencesData = SharedPreferencesData.getInstance(getContext());
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -85,6 +100,7 @@ public class LearnFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sharedPreferencesData = SharedPreferencesData.getInstance(getContext());
 
         ongoing_course_rec =  view.findViewById(R.id.ongoing_course_rec);
         completed_course_rec = view.findViewById(R.id.completed_course_rec);
@@ -111,13 +127,14 @@ public class LearnFragment extends Fragment {
 
                 ongoing_course_rec.setVisibility(View.GONE);
                 completed_course_rec.setVisibility(View.VISIBLE);
-
+                get_on_going_and_completed_course(sharedPreferencesData.getUSER_id(), "comp");
             }
         });
 
         ongoing_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                get_on_going_and_completed_course(sharedPreferencesData.getUSER_id(), "ongoing");
                 ColorStateList colorStateList = ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
                 ColorStateList colorStateList2 = ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.grey_white));
 
@@ -141,11 +158,45 @@ public class LearnFragment extends Fragment {
         ongoing_course_rec.setLayoutManager(layoutManager);
         completed_course_rec.setLayoutManager(layoutManager2);
 
+        get_on_going_and_completed_course(sharedPreferencesData.getUSER_id(), "ongoing");
+//
+
         JsonArray ja = new JsonArray();
-        OngoingAndCompletedAdapter = new OngoingAndCompletedAdapter(ja, getContext());
-        ongoing_course_rec.setAdapter(OngoingAndCompletedAdapter);
-        completed_course_rec.setAdapter(OngoingAndCompletedAdapter);
 
 
+    }
+
+    private void  get_on_going_and_completed_course(String user, String state) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("user_id",user);
+        jsonObject.addProperty("state",state);
+        Call<JsonObjectModalResponse> call = apiInterface.ongoing_and_completed_course(jsonObject);
+        call.enqueue(new Callback<JsonObjectModalResponse>() {
+            @Override
+            public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
+                if (response.isSuccessful()) {
+
+                    if (response.body().isSuccess()) {
+                        JsonArray ja;
+                        ja = response.body().getRecord().get("data").getAsJsonArray();
+
+                        OngoingAndCompletedAdapter = new OngoingAndCompletedAdapter(ja, getContext());
+                        if(state.equalsIgnoreCase("ongoing")){
+                            ongoing_course_rec.setAdapter(OngoingAndCompletedAdapter);
+                        }else {
+                            completed_course_rec.setAdapter(OngoingAndCompletedAdapter);
+                        }
+
+                    }else {
+                    }
+
+                }
+            }
+            //check something
+            @Override
+            public void onFailure(Call<JsonObjectModalResponse> call, Throwable t) {
+                Log.d("sliding_category", t.getMessage());
+            }
+        });
     }
 }
