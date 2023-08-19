@@ -32,4 +32,7 @@ public interface ApiInterface {
     @POST("ongoing_and_completed_course")
     Call<JsonObjectModalResponse> ongoing_and_completed_course(@Body JsonObject requestBody);
 
+    @POST("change_to_completd")
+    Call<JsonObjectModalResponse> change_to_completd(@Body JsonObject requestBody);
+
 }

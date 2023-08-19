@@ -361,6 +361,22 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/continue_btn"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="Continue"
+            android:background="@drawable/round_bottom_nav"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:layout_marginVertical="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:fontFamily="@font/roboto_bold"
+            android:backgroundTint="@color/colorPrimaryDark"
+            />
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/enroll_btn"
             android:layout_width="0dp"
             android:layout_height="50dp"

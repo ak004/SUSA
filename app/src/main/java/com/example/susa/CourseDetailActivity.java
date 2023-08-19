@@ -46,7 +46,7 @@ public class CourseDetailActivity extends AppCompatActivity {
     RecyclerView similar_courese_rec;
     CourseAdapter courseAdapter;
     SharedPreferencesData sharedPreferencesData;
-    AppCompatButton enroll_btn;
+    AppCompatButton enroll_btn,continue_btn;
     String Course_id;
     LinearLayout enroll_linear;
     ProgressBar progress_circular;
@@ -72,6 +72,7 @@ public class CourseDetailActivity extends AppCompatActivity {
         cours_amount = findViewById(R.id.cours_amount);
         enroll_linear = findViewById(R.id.enroll_linear);
         bookmark_svgs = findViewById(R.id.bookmark_svgs);
+        continue_btn = findViewById(R.id.continue_btn);
         sharedPreferencesData = SharedPreferencesData.getInstance(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(CourseDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
 
@@ -89,9 +90,16 @@ public class CourseDetailActivity extends AppCompatActivity {
                 String amt = cours_amount.getText().toString();
                 String extractedNumber = amt.replaceAll("[^0-9]", "");
                 open_payment_notifaiction_dilog(sharedPreferencesData.getUSER_id(), Course_id,extractedNumber);
-//                Intent intent = new Intent(CourseDetailActivity.this,LessonsActivity.class);
-//                intent.putExtra("course_id",Course_id );
-//                startActivity(intent);
+
+            }
+        });
+
+        continue_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                        Intent intent = new Intent(CourseDetailActivity.this,LessonsActivity.class);
+                        intent.putExtra("course_id",Course_id );
+                        startActivity(intent);
             }
         });
         bookmark_svgs.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +154,14 @@ public class CourseDetailActivity extends AppCompatActivity {
                     new JsonArray();
                     JsonArray ja;
                     ja = response.body().getRecord().get("data").getAsJsonArray();
+                    Boolean bought = response.body().getRecord().get("bought").getAsBoolean();
+                    if(bought) {
+                        continue_btn.setVisibility(View.VISIBLE);
+                        enroll_btn.setVisibility(View.GONE);
+                    }else {
+                        continue_btn.setVisibility(View.GONE);
+                        enroll_btn.setVisibility(View.VISIBLE);
+                    }
                     JsonObject jo = ja.get(0).getAsJsonObject();
                     progress_circular.setVisibility(View.GONE);
                     Title_txt.setText(jo.get("title").getAsString());
@@ -241,9 +257,12 @@ public class CourseDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     if (response.body().isSuccess()) {
-                        Toast.makeText(CourseDetailActivity.this, "Congratulation you have Successfully Bought this course", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CourseDetailActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(CourseDetailActivity.this,LessonsActivity.class);
+                        intent.putExtra("course_id",Course_id );
+                        startActivity(intent);
                     }else {
-                        Toast.makeText(CourseDetailActivity.this, "TRY AGAIN", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CourseDetailActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 }

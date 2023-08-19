@@ -71,7 +71,12 @@ public class VideoContentActivity extends AppCompatActivity {
                 startActivity(ine);
             }
         });
-
+        completed_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                change_to_completd(vid_id, sharedPreferencesData.getUSER_id());
+            }
+        });
 
         Intent intent = getIntent();
         vid_id = intent.getStringExtra("vid_id");
@@ -85,6 +90,35 @@ public class VideoContentActivity extends AppCompatActivity {
         get_course_details(vid_id, sharedPreferencesData.getUSER_id());
 
     }
+
+
+    private void  change_to_completd(String vid, String user_id){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("user_id",user_id);
+        jsonObject.addProperty("vid_id",vid);
+        Call<JsonObjectModalResponse> call = apiInterface.change_to_completd(jsonObject);
+        call.enqueue(new Callback<JsonObjectModalResponse>() {
+            @Override
+            public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
+                if (response.isSuccessful()) {
+                    if(response.body().isSuccess()) {
+                        Toast.makeText(VideoContentActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }else {
+                        Toast.makeText(VideoContentActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            }
+            //check something
+            @Override
+            public void onFailure(Call<JsonObjectModalResponse> call, Throwable t) {
+                Log.d("sliding_category", t.getMessage());
+            }
+        });
+    }
+
 
 
     private void get_course_details(String vid_id,String user_id) {

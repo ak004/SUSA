@@ -8,6 +8,16 @@ public class JsonObjectModalResponse {
     private boolean success;
     @SerializedName("record")
     private JsonObject record;
+    @SerializedName("message")
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public boolean isSuccess() {
         return success;
