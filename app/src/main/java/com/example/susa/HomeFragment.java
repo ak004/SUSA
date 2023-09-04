@@ -1,5 +1,6 @@
 package com.example.susa;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.susa.Adapter.CatagoriesAdapter;
@@ -45,6 +47,7 @@ public class HomeFragment extends Fragment {
     RecyclerView cat_rec, course_rec, mentor_rec;
     CatagoriesAdapter catagoriesAdapter;
     SharedPreferencesData sharedPreferencesData;
+    TextView see_all;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
     CourseAdapter courseAdapter;
@@ -97,6 +100,7 @@ public class HomeFragment extends Fragment {
         cat_rec = view.findViewById(R.id.cat_rec);
         course_rec = view.findViewById(R.id.course_rec);
         mentor_rec = view.findViewById(R.id.mentor_rec);
+        see_all = view.findViewById(R.id.see_all);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -110,6 +114,14 @@ public class HomeFragment extends Fragment {
 
 
         getCourses(sharedPreferencesData.getUSER_id());
+
+        see_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),SearchCourseActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -144,6 +156,7 @@ public class HomeFragment extends Fragment {
     private void getCourses(String user_id) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("user_id",user_id);
+        jsonObject.addProperty("limit","yes");
         Call<JsonObjectModalResponse> call = apiInterface.getCourses(jsonObject);
         call.enqueue(new Callback<JsonObjectModalResponse>() {
             @Override
