@@ -3,6 +3,7 @@ package com.example.susa.Adapter;
 import static com.example.susa.Web_service.ApiClient.Base_image_url;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.susa.R;
+import com.example.susa.SearchCourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -45,6 +48,16 @@ public class CatagoriesAdapter extends RecyclerView.Adapter<CatagoriesAdapter.Vi
                 .placeholder(R.drawable.image_placeholder)
                 .into(holder.imgea_vw);
 
+
+        holder.cat_click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SearchCourseActivity.class);
+                intent.putExtra("cat_id", listItem.get("_id").getAsString() );
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -56,12 +69,14 @@ public class CatagoriesAdapter extends RecyclerView.Adapter<CatagoriesAdapter.Vi
 
         TextView txt_title;
         ImageView imgea_vw;
+        CardView cat_click;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txt_title = itemView.findViewById(R.id.txt_title);
             imgea_vw = itemView.findViewById(R.id.imgea_vw);
+            cat_click = itemView.findViewById(R.id.cat_click);
         }
     }
 }

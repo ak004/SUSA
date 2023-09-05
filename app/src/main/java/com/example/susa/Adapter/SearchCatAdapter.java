@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -14,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.susa.R;
+import com.example.susa.SearchCourseActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -21,10 +23,14 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
 
     JsonArray ja;
     Context context;
+    SearchCourseActivity searchCourseActivity;
+    String selected;
     private int selectedItemPosition = -1;
-    public SearchCatAdapter(JsonArray ja, Context context) {
+    public SearchCatAdapter(JsonArray ja, Context context ,SearchCourseActivity searchCourseActivity, String selected)  {
         this.ja = ja;
         this.context = context;
+        this.searchCourseActivity = searchCourseActivity;
+        this.selected = selected;
     }
 
     @NonNull
@@ -40,16 +46,16 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
 
         holder.text.setText(listItem.get("title").getAsString());
 
+        if(selected.equalsIgnoreCase(listItem.get("_id").getAsString())) {
+            Toast.makeText(context, "T:"+ listItem.get("_id"), Toast.LENGTH_SHORT).show();
+            selectedItemPosition = position;
+        }
 
         if (position == selectedItemPosition) {
-            // Item is selected, change its background and text color
             int color = ContextCompat.getColor(context, R.color.colorPrimaryDark);
             holder.card_click.setBackgroundTintList(ColorStateList.valueOf(color));
-//            holder.card_click.setBackgroundTintList(ContextCompat.getColor(context, R.color.colorPrimaryDark));
-//            holder.card_click.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
             holder.text.setTextColor(Color.WHITE);
         } else {
-            // Item is not selected, reset its background and text color
             int color = ContextCompat.getColor(context, R.color.white);
             holder.card_click.setBackgroundTintList(ColorStateList.valueOf(color));
 
@@ -67,14 +73,16 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
                     selectedItemPosition = position;
                     notifyItemChanged(previousSelectedItemPosition);
                     notifyItemChanged(selectedItemPosition);
+                    onItemClick(position);
+
                 } else {
                     // If the same item is clicked again, deselect it
                     selectedItemPosition = -1;
+                    searchCourseActivity.filter_cat("");
                     notifyItemChanged(position);
                 }
 
                 // Handle the item click event here (e.g., open a new activity or perform an action)
-                onItemClick(position);
             }
         });
 
@@ -82,6 +90,8 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
 
     private void onItemClick(int position) {
         // Handle the item click event here (e.g., open a new activity or perform an action)
+        searchCourseActivity.filter_cat(ja.get(position).getAsJsonObject().get("_id").getAsString());
+
     }
     @Override
     public int getItemCount() {

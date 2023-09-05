@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class HomeFragment extends Fragment {
     CatagoriesAdapter catagoriesAdapter;
     SharedPreferencesData sharedPreferencesData;
     TextView see_all;
+    LinearLayout search_bar;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
     CourseAdapter courseAdapter;
@@ -101,6 +103,7 @@ public class HomeFragment extends Fragment {
         course_rec = view.findViewById(R.id.course_rec);
         mentor_rec = view.findViewById(R.id.mentor_rec);
         see_all = view.findViewById(R.id.see_all);
+        search_bar = view.findViewById(R.id.search_bar);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -116,6 +119,14 @@ public class HomeFragment extends Fragment {
         getCourses(sharedPreferencesData.getUSER_id());
 
         see_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),SearchCourseActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        search_bar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),SearchCourseActivity.class);

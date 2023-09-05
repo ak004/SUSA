@@ -1,5 +1,7 @@
 package com.example.susa.Adapter;
 
+import static com.example.susa.Web_service.ApiClient.Base_image_url;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.susa.CourseDetailActivity;
 import com.example.susa.R;
 import com.example.susa.SharedPreferencesData;
@@ -49,6 +52,12 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
         holder.course_title.setText(listItem.get("title").getAsString());
         holder.course_amount.setText("$"+listItem.get("price").getAsString());
+
+        Glide.with(context)
+                .load(Base_image_url+listItem.get("image").getAsString())
+                .centerCrop()
+                .placeholder(R.drawable.image_placeholder)
+                .into(holder.coure_image);
 
 
         holder.boookmark_image.setOnClickListener(new View.OnClickListener() {

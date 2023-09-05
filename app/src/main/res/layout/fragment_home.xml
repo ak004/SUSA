@@ -64,6 +64,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_bottom_nav"
@@ -169,7 +170,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:fontFamily="@font/roboto_bold"
-                                    android:text="100%"
+                                    android:text="70%"
                                     android:textColor="@android:color/white"
                                     android:textSize="17sp" />
 

@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,6 +34,7 @@ public class SearchCourseActivity extends AppCompatActivity {
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     SearchCatAdapter searchCatAdapter;
     SearchCourseAdapter searchCourseAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,15 +48,51 @@ public class SearchCourseActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         cat_rec.setLayoutManager(layoutManager2);
         course_rec.setLayoutManager(layoutManager);
-        get_cat(sharedPreferencesData.getUSER_id());
+        get_cat(sharedPreferencesData.getUSER_id(), "");
 
-        get_all_course(sharedPreferencesData.getUSER_id());
+        get_all_course(sharedPreferencesData.getUSER_id(), "");
+
+        search_txt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(searchCourseAdapter != null) {
+                    if(editable != null) {
+                        Log.d("thedsfa", "-----: " +  editable );
+                        searchCourseAdapter.getFilter().filter(editable.toString());
+
+                    }
+                }
+            }
+        });
+
+
+        Intent intent = getIntent();
+
+        try {
+            if(intent.getStringExtra("cat_id").length() > 5) {
+                get_all_course(sharedPreferencesData.getUSER_id(),intent.getStringExtra("cat_id"));
+                get_cat(sharedPreferencesData.getUSER_id(), intent.getStringExtra("cat_id"));
+            }
+        }catch (NullPointerException e) {
+            Log.d("thenull_pointer", "Null pointer from intent in searchcourseactivity: " + e);
+        }
     }
 
-    private void get_all_course(String user_id) {
+    private void get_all_course(String user_id, String cat) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("user_id",user_id);
         jsonObject.addProperty("limit","no");
+        jsonObject.addProperty("cat",cat);
         Call<JsonObjectModalResponse> call = apiInterface.getCourses(jsonObject);
         call.enqueue(new Callback<JsonObjectModalResponse>() {
             @Override
@@ -64,8 +104,12 @@ public class SearchCourseActivity extends AppCompatActivity {
                         ja = response.body().getRecord().get("data").getAsJsonArray();
                         searchCourseAdapter = new SearchCourseAdapter(ja,SearchCourseActivity.this);
                         course_rec.setAdapter(searchCourseAdapter);
+
                     }else {
-                        Toast.makeText(SearchCourseActivity.this, "THERE IS NO COURSE", Toast.LENGTH_SHORT).show();
+                        JsonArray ja2 = new JsonArray();
+                        searchCourseAdapter = new SearchCourseAdapter(ja2,SearchCourseActivity.this);
+                        course_rec.setAdapter(searchCourseAdapter);
+//                        Toast.makeText(SearchCourseActivity.this, "THERE IS NO COURSE", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -78,7 +122,7 @@ public class SearchCourseActivity extends AppCompatActivity {
         });
     }
 
-    private void  get_cat(String user_id) {
+    private void  get_cat(String user_id, String selcted_id) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("user_id",user_id);
         Call<JsonObjectModalResponse> call = apiInterface.get_catagories(jsonObject);
@@ -90,7 +134,7 @@ public class SearchCourseActivity extends AppCompatActivity {
                     if(response.body().isSuccess()) {
                         JsonArray ja;
                         ja = response.body().getRecord().get("data").getAsJsonArray();
-                        searchCatAdapter = new SearchCatAdapter(ja,SearchCourseActivity.this);
+                        searchCatAdapter = new SearchCatAdapter(ja,SearchCourseActivity.this, SearchCourseActivity.this, selcted_id);
                         cat_rec.setAdapter(searchCatAdapter);
                     }else {
                         Toast.makeText(SearchCourseActivity.this, "THERE IS NO CATEGORIES", Toast.LENGTH_SHORT).show();
@@ -103,5 +147,10 @@ public class SearchCourseActivity extends AppCompatActivity {
                 Log.d("sliding_category", t.getMessage());
             }
         });
+    }
+
+    public   void  filter_cat( String _id) {
+        get_all_course(sharedPreferencesData.getUSER_id(), _id);
+
     }
 }

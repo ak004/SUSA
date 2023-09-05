@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,15 +28,18 @@ import com.google.gson.JsonObject;
 
 import java.util.Set;
 
-public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapter.ViewHolder> {
+public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapter.ViewHolder> implements Filterable {
 
     JsonArray ja;
     Context context;
     SharedPreferencesData sharedPreferencesData;
+    JsonArray itemlist_filter;
 
     public SearchCourseAdapter(JsonArray ja, Context context) {
         this.ja = ja;
         this.context = context;
+        this.itemlist_filter = ja;
+
     }
 
     @NonNull
@@ -46,7 +51,7 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SearchCourseAdapter.ViewHolder holder, int position) {
-        final JsonObject listItem = ja.get(position).getAsJsonObject();
+        final JsonObject listItem = itemlist_filter.get(position).getAsJsonObject();
         sharedPreferencesData = SharedPreferencesData.getInstance(context);
         Set<String> bookmarkedIds = sharedPreferencesData.getBookmarkedIds();
 
@@ -107,7 +112,7 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
 
     @Override
     public int getItemCount() {
-        return ja.size();
+        return itemlist_filter.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -128,4 +133,38 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
 
         }
     }
+
+
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    itemlist_filter = ja;
+                } else {
+                    JsonArray filteredList = new JsonArray();
+                    for (int i = 0; i < ja.size(); i++) {
+                        JsonObject jsonObject = ja.get(i).getAsJsonObject();
+                        if (jsonObject.get("title").getAsString().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(jsonObject);
+                        }
+                    }
+                    itemlist_filter = filteredList;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = itemlist_filter;
+                return filterResults;
+            }
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                itemlist_filter = (JsonArray) filterResults.values;
+                // refresh the list with filtered data
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 }
