@@ -159,7 +159,6 @@
                                     android:layout_width="85dp"
                                     android:layout_height="85dp"
                                     android:indeterminate="false"
-
                                     android:max="100"
                                     android:progress="20"
                                     android:progressDrawable="@drawable/circular_progress_bar" />

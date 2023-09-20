@@ -35,4 +35,14 @@ public interface ApiInterface {
     @POST("change_to_completd")
     Call<JsonObjectModalResponse> change_to_completd(@Body JsonObject requestBody);
 
+    @POST("send_verification")
+    Call<JsonObjectModalResponse> send_verification(@Body JsonObject requestBody);
+
+    @POST("signup")
+    Call<JsonObjectModalResponse> signup(@Body JsonObject requestBody);
+
+
+    @POST("login")
+    Call<JsonObjectModalResponse> login(@Body JsonObject requestBody);
+
 }

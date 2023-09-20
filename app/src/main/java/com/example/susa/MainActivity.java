@@ -1,6 +1,7 @@
 package com.example.susa;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -25,8 +26,11 @@ public class MainActivity extends AppCompatActivity {
         //this from computer
 //        sharedPreferencesData.putuser_id("64ddb0116127693946021a59");
         // this from the laptop
-        sharedPreferencesData.putuser_id("6454bb2b93c5296f82b71445");
 
+        if(sharedPreferencesData.getUSER_id().isEmpty()) {
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
+        }
         chipNavigationBar = findViewById(R.id.chipNavigation);
 
         chipNavigationBar.setItemSelected(R.id.home2, true);
