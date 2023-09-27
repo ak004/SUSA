@@ -45,4 +45,7 @@ public interface ApiInterface {
     @POST("login")
     Call<JsonObjectModalResponse> login(@Body JsonObject requestBody);
 
+    @POST("qr_validation")
+    Call<JsonObjectModalResponse> cross_login(@Body JsonObject requestBody);
+
 }
