@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         sharedPreferencesData = SharedPreferencesData.getInstance(this);
         //this from computer
-        sharedPreferencesData.putuser_id("64ddb0116127693946021a59");
+//        sharedPreferencesData.putuser_id("64ddb0116127693946021a59");
         // this from the laptop
 
         if(sharedPreferencesData.getUSER_id().isEmpty()) {

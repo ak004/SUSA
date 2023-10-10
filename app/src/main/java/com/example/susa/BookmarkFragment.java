@@ -126,7 +126,7 @@ public class BookmarkFragment extends Fragment {
                         bookmarkAdapter = new BookmarkAdapter(ja,getContext());
                         bookmark_rec.setAdapter(bookmarkAdapter);
                     }else {
-                        Toast.makeText(getContext(), "THERE IS NO CATEGORIES", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "THERE IS NO CATEGORIES", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

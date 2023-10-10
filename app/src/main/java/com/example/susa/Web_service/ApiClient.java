@@ -27,11 +27,11 @@ public class    ApiClient {
 //    private static String BASE_URL = "http://192.168.1.8:3000/api/";
 //    public static String Base_image_url = "http://192.168.1.8:3000/";
 
-    private static String BASE_URL = "http://192.168.0.118:3000/api/";
-    public static String Base_image_url = "http://192.168.0.118:3000/";
+//    private static String BASE_URL = "http://192.168.0.118:3000/api/";
+//    public static String Base_image_url = "http://192.168.0.118:3000/";
 
-//    private static String BASE_URL = "https://sl.hiraabe.com/api/";
-//    public static String Base_image_url = "https://sl.hiraabe.com/";
+    private static String BASE_URL = "http://54.87.193.67/api/";
+    public static String Base_image_url = "http://54.87.193.67";
 
     public static MediaType MEDIA_TYPE_IMAGE = MediaType.parse("placeholder/*");
 

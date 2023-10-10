@@ -47,7 +47,7 @@ public class SettingFragment extends Fragment {
 
     SharedPreferencesData sharedPreferencesData;
 
-    private LinearLayout qr_code_linear;
+    private LinearLayout qr_code_linear,logout_btn;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -97,12 +97,21 @@ public class SettingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         qr_code_linear = view.findViewById(R.id.qr_code_linear);
+        logout_btn = view.findViewById(R.id.logout_btn);
 
 
         qr_code_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ScanCode();
+            }
+        });
+        logout_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedPreferencesData.putuser_id("");
+                Intent intent = new Intent(getContext(),LoginActivity.class);
+                startActivity(intent);
             }
         });
 

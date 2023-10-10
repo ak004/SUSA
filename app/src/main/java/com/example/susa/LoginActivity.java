@@ -34,6 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         sharedPreferencesData = SharedPreferencesData.getInstance(this);
 
+        if(sharedPreferencesData.getUSER_id().length() > 4) {
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
         sign_txt = findViewById(R.id.sign_txt);
         login_btn = findViewById(R.id.login_btn);
         username = findViewById(R.id.username);
