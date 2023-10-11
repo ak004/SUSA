@@ -46,10 +46,10 @@ public class SearchCatAdapter extends RecyclerView.Adapter<SearchCatAdapter.View
 
         holder.text.setText(listItem.get("title").getAsString());
 
-        if(selected.equalsIgnoreCase(listItem.get("_id").getAsString())) {
-//            Toast.makeText(context, "T:"+ listItem.get("_id"), Toast.LENGTH_SHORT).show();
-            selectedItemPosition = position;
-        }
+//        if(selected.equalsIgnoreCase(listItem.get("_id").getAsString())) {
+////            Toast.makeText(context, "T:"+ listItem.get("_id"), Toast.LENGTH_SHORT).show();
+//            selectedItemPosition = position;
+//        }
 
         if (position == selectedItemPosition) {
             int color = ContextCompat.getColor(context, R.color.colorPrimaryDark);

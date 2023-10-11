@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Size;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -25,6 +27,8 @@ import com.example.susa.models.JsonObjectModalResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import nl.dionsegijn.konfetti.KonfettiView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +43,7 @@ public class VideoContentActivity extends AppCompatActivity {
     TextView vid_name,vid_desc;
     String vid_id, vid_url, is_last;
     ProgressBar progress_circular;
-
+    KonfettiView congragulation_view;
     AppCompatButton completed_btn,ask_ai_btn;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -57,6 +61,7 @@ public class VideoContentActivity extends AppCompatActivity {
         vid_desc = findViewById(R.id.vid_desc);
         completed_btn = findViewById(R.id.completed_btn);
         ask_ai_btn = findViewById(R.id.ask_ai_btn);
+        congragulation_view = findViewById(R.id.congragulation_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         attachments_rec.setLayoutManager(layoutManager);
 
@@ -67,6 +72,9 @@ public class VideoContentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent  ine  = new Intent(VideoContentActivity.this, VideoPlayerActiviy.class);
+                if (vid_url.startsWith("/")) {
+                    vid_url = vid_url.substring(1);
+                }
                 ine.putExtra("the_path",vid_url);
                 startActivity(ine);
             }
@@ -74,7 +82,17 @@ public class VideoContentActivity extends AppCompatActivity {
         completed_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                change_to_completd(vid_id, sharedPreferencesData.getUSER_id());
+//                change_to_completd(vid_id, sharedPreferencesData.getUSER_id());
+
+                congragulation_view.build()
+                        .addColors(Color.YELLOW, Color.GREEN, Color.RED, Color.MAGENTA,Color.CYAN )
+                        .setDirection(0.0, 209.0)
+                        .setSpeed(1f, 5f)
+                        .setFadeOutEnabled(true)
+                        .setTimeToLive(2000L)
+                        .setPosition(-50f, congragulation_view.getWidth() + 50f, -50f, -50f)
+                        .stream(200, 2000L);
+
             }
         });
 

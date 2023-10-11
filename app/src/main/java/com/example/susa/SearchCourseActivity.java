@@ -78,14 +78,14 @@ public class SearchCourseActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        try {
-            if(intent.getStringExtra("cat_id").length() > 5) {
-                get_all_course(sharedPreferencesData.getUSER_id(),intent.getStringExtra("cat_id"));
-                get_cat(sharedPreferencesData.getUSER_id(), intent.getStringExtra("cat_id"));
-            }
-        }catch (NullPointerException e) {
-            Log.d("thenull_pointer", "Null pointer from intent in searchcourseactivity: " + e);
-        }
+//        try {
+//            if(intent.getStringExtra("cat_id").length() > 5) {
+//                get_all_course(sharedPreferencesData.getUSER_id(),intent.getStringExtra("cat_id"));
+//                get_cat(sharedPreferencesData.getUSER_id(), intent.getStringExtra("cat_id"));
+//            }
+//        }catch (NullPointerException e) {
+//            Log.d("thenull_pointer", "Null pointer from intent in searchcourseactivity: " + e);
+//        }
     }
 
     private void get_all_course(String user_id, String cat) {
