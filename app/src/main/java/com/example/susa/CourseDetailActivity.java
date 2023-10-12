@@ -77,9 +77,9 @@ public class CourseDetailActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(CourseDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
 
         similar_courese_rec.setLayoutManager(layoutManager);
-        JsonArray ja = new JsonArray();
-        courseAdapter = new CourseAdapter(ja, CourseDetailActivity.this);
-        similar_courese_rec.setAdapter(courseAdapter);
+//        JsonArray ja = new JsonArray();
+//        courseAdapter = new CourseAdapter(ja, CourseDetailActivity.this);
+//        similar_courese_rec.setAdapter(courseAdapter);
         Set<String> bookmarkedIds = sharedPreferencesData.getBookmarkedIds();
 
 
@@ -128,6 +128,7 @@ public class CourseDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Course_id = intent.getStringExtra("course_id");
+        getSimilarCourses(sharedPreferencesData.getUSER_id(),intent.getStringExtra("course_id"));
 
         updateBookmarkDrawable(bookmark_svgs,bookmarkedIds.contains(Course_id));
         progress_circular.setVisibility(View.VISIBLE);
@@ -141,6 +142,37 @@ public class CourseDetailActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.bookmark_svg);
         }
     }
+
+    private void getSimilarCourses(String user_id, String cour) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("user_id",user_id);
+        jsonObject.addProperty("cat_id",cour);
+        Call<JsonObjectModalResponse> call = apiInterface.similar_course(jsonObject);
+        call.enqueue(new Callback<JsonObjectModalResponse>() {
+            @Override
+            public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
+                if (response.isSuccessful()) {
+
+                    if (response.body().isSuccess()) {
+                        JsonArray ja;
+                        ja = response.body().getRecord().get("data").getAsJsonArray();
+                        courseAdapter = new CourseAdapter(ja,CourseDetailActivity.this);
+                        similar_courese_rec.setAdapter(courseAdapter);
+                    }else {
+                        Toast.makeText(CourseDetailActivity.this, "THERE IS NO SIMILAR   COURSE", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+            //check something
+            @Override
+            public void onFailure(Call<JsonObjectModalResponse> call, Throwable t) {
+                Log.d("sliding_category", t.getMessage());
+            }
+        });
+    }
+
+
 
     private void get_course_details(String course,String user_id) {
         JsonObject jsonObject = new JsonObject();

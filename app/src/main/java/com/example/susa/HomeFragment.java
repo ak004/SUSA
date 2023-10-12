@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.susa.Adapter.CatagoriesAdapter;
 import com.example.susa.Adapter.CourseAdapter;
+import com.example.susa.Adapter.MentorsAadapter;
 import com.example.susa.Web_service.ApiClient;
 import com.example.susa.Web_service.ApiInterface;
 import com.example.susa.models.JsonObjectModalResponse;
@@ -53,6 +54,7 @@ public class HomeFragment extends Fragment {
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
     CourseAdapter courseAdapter;
+    MentorsAadapter mentorsAadapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -110,14 +112,12 @@ public class HomeFragment extends Fragment {
         course_rec.setLayoutManager(layoutManager2);
         cat_rec.setLayoutManager(layoutManager);
         mentor_rec.setLayoutManager(layoutManager3);
-
         getCatagories(sharedPreferencesData.getUSER_id());
             JsonArray ja = new JsonArray();
-        mentor_rec.setAdapter(catagoriesAdapter);
-
 
         getCourses(sharedPreferencesData.getUSER_id());
 
+        getmentors(sharedPreferencesData.getUSER_id());
         see_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,6 +183,35 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), "THERE IS NO COURSE", Toast.LENGTH_SHORT).show();
                     }
 
+                }
+            }
+            //check something
+            @Override
+            public void onFailure(Call<JsonObjectModalResponse> call, Throwable t) {
+                Log.d("sliding_category", t.getMessage());
+            }
+        });
+    }
+
+
+    private void getmentors(String user_id) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("user_id",user_id);
+        Call<JsonObjectModalResponse> call = apiInterface.top_mentors(jsonObject);
+        call.enqueue(new Callback<JsonObjectModalResponse>() {
+            @Override
+            public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.d("theresssmnetor", "THe res pnms is: "+ response.body().getRecord());
+                    if(response.body().isSuccess()) {
+                        JsonArray ja;
+                        ja = response.body().getRecord().get("data").getAsJsonArray();
+                        mentorsAadapter = new MentorsAadapter(ja,getContext());
+                        mentor_rec.setAdapter(mentorsAadapter);
+
+                    }else {
+                        Toast.makeText(getContext(), "THERE IS NO CATEGORIES", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             //check something
