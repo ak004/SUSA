@@ -233,7 +233,7 @@
                   <TextView
                       android:layout_width="0dp"
                       android:layout_height="wrap_content"
-                      android:text="Sign in with QR cde"
+                      android:text="Sign in with QR code"
                       android:layout_weight="1"
                       android:textColor="@color/black"
                       android:textStyle="bold"
@@ -281,6 +281,37 @@
 
               </LinearLayout>
 
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="20dp"
+                  android:visibility="invisible"
+                  android:orientation="horizontal">
+
+                  <ImageView
+                      android:layout_width="40dp"
+                      android:layout_height="40dp"
+                      android:layout_marginRight="40dp"
+                      android:src="@drawable/logout_icon"
+                      app:tint="@color/colorPrimaryDark" />
+
+                  <TextView
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:layout_weight="1"
+                      android:fontFamily="@font/roboto_medium"
+                      android:text="just to occupied a space"
+                      android:textColor="@color/black"
+                      android:textStyle="bold" />
+
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:src="@drawable/baseline_arrow_forward_ios_24" />
+
+              </LinearLayout>
 
           </LinearLayout>
 

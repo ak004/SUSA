@@ -30,8 +30,8 @@ public class    ApiClient {
 //    private static String BASE_URL = "http://192.168.0.118:3000/api/";
 //    public static String Base_image_url = "http://192.168.0.118:3000/";
 
-    private static String BASE_URL = "http://54.87.193.67/api/";
-    public static String Base_image_url = "http://54.87.193.67/";
+    private static String BASE_URL = "http://susa.mascud.me/api/";
+    public static String Base_image_url = "http://susa.mascud.me/";
 
     public static MediaType MEDIA_TYPE_IMAGE = MediaType.parse("placeholder/*");
 
