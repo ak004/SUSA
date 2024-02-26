@@ -48,4 +48,10 @@ public interface ApiInterface {
     @POST("qr_validation")
     Call<JsonObjectModalResponse> cross_login(@Body JsonObject requestBody);
 
+    @POST("top_mentors")
+    Call<JsonObjectModalResponse> top_mentors(@Body JsonObject requestBody);
+
+    @POST("similar_course")
+    Call<JsonObjectModalResponse> similar_course(@Body JsonObject requestBody);
+
 }

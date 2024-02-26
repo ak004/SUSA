@@ -47,7 +47,7 @@ public class SettingFragment extends Fragment {
 
     SharedPreferencesData sharedPreferencesData;
 
-    private LinearLayout qr_code_linear,logout_btn;
+    private LinearLayout qr_code_linear,logout_btn, contactus_btn,aboutus_btn,paymentinfo_btn;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -98,6 +98,9 @@ public class SettingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         qr_code_linear = view.findViewById(R.id.qr_code_linear);
         logout_btn = view.findViewById(R.id.logout_btn);
+        contactus_btn = view.findViewById(R.id.contactus_btn);
+        aboutus_btn = view.findViewById(R.id.aboutus_btn);
+        paymentinfo_btn = view.findViewById(R.id.paymentinfo_btn);
 
 
         qr_code_linear.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +117,32 @@ public class SettingFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
+        contactus_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ContactUsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        aboutus_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),AboutUSActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        paymentinfo_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),PaymentReportActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
