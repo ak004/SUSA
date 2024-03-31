@@ -32,7 +32,7 @@ public class MentorsAadapter  extends RecyclerView.Adapter<MentorsAadapter.ViewH
     @NonNull
     @Override
     public MentorsAadapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.catagores_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.resource_card_item, parent, false);
         return new MentorsAadapter.ViewHolder(view);
     }
 
@@ -41,11 +41,11 @@ public class MentorsAadapter  extends RecyclerView.Adapter<MentorsAadapter.ViewH
         final JsonObject listItem = ja.get(position).getAsJsonObject();
 
         holder.txt_title.setText(listItem.get("name").getAsString());
-        Glide.with(context)
-                .load("")
-                .centerCrop()
-                .placeholder(R.drawable.image_placeholder)
-                .into(holder.imgea_vw);
+//        Glide.with(context)
+//                .load("")
+//                .centerCrop()
+//                .placeholder(R.drawable.image_placeholder)
+//                .into(holder.imgea_vw);
 
     }
 
@@ -56,15 +56,15 @@ public class MentorsAadapter  extends RecyclerView.Adapter<MentorsAadapter.ViewH
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txt_title;
-        ImageView imgea_vw;
-        CardView cat_click;
+//        ImageView imgea_vw;
+//        CardView cat_click;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txt_title = itemView.findViewById(R.id.txt_title);
-            imgea_vw = itemView.findViewById(R.id.imgea_vw);
-            cat_click = itemView.findViewById(R.id.cat_click);
+            txt_title = itemView.findViewById(R.id.mentore);
+//            imgea_vw = itemView.findViewById(R.id.imgea_vw);
+//            cat_click = itemView.findViewById(R.id.cat_click);
         }
     }
 }
