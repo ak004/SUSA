@@ -84,6 +84,9 @@
             android:name=".CourseDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".ResourceDetails"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
 

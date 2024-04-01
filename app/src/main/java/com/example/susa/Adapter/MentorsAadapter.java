@@ -3,10 +3,12 @@ package com.example.susa.Adapter;
 import static com.example.susa.Web_service.ApiClient.Base_image_url;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.susa.R;
+import com.example.susa.ResourceDetails;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -40,6 +43,13 @@ public class MentorsAadapter  extends RecyclerView.Adapter<MentorsAadapter.ViewH
     public void onBindViewHolder(@NonNull MentorsAadapter.ViewHolder holder, int position) {
         final JsonObject listItem = ja.get(position).getAsJsonObject();
 
+        holder.redirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ResourceDetails.class);
+                context.startActivity(intent);
+            }
+        });
         holder.txt_title.setText(listItem.get("name").getAsString());
 //        Glide.with(context)
 //                .load("")
@@ -58,6 +68,7 @@ public class MentorsAadapter  extends RecyclerView.Adapter<MentorsAadapter.ViewH
         TextView txt_title;
 //        ImageView imgea_vw;
 //        CardView cat_click;
+        LinearLayout redirect;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +76,7 @@ public class MentorsAadapter  extends RecyclerView.Adapter<MentorsAadapter.ViewH
             txt_title = itemView.findViewById(R.id.mentore);
 //            imgea_vw = itemView.findViewById(R.id.imgea_vw);
 //            cat_click = itemView.findViewById(R.id.cat_click);
+            redirect = itemView.findViewById(R.id.redirect);
         }
     }
 }
