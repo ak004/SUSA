@@ -236,17 +236,32 @@
                     android:layout_marginVertical="15dp"/>
 
 
-                <TextView
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Resources"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="20dp"
                     android:layout_marginHorizontal="25dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:textSize="16dp"/>
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Trending Course "
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textSize="16dp"/>
 
+                    <TextView
+                        android:id="@+id/see_all_resources"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See All"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="@font/roboto"/>
+                </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mentor_rec"
                     android:layout_width="match_parent"

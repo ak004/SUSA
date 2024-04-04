@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.susa.CourseDetailActivity;
+import com.example.susa.LessonsActivity;
 import com.example.susa.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -53,7 +54,7 @@ public class OngoingAndCompletedAdapter extends RecyclerView.Adapter<OngoingAndC
         holder.course_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CourseDetailActivity.class);
+                Intent intent = new Intent(context, LessonsActivity.class);
                 intent.putExtra("course_id", listItem.get("module_id").getAsString());
                 context.startActivity(intent);
             }

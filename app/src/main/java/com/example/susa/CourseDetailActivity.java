@@ -51,7 +51,7 @@ public class CourseDetailActivity extends AppCompatActivity {
     LinearLayout enroll_linear;
     ProgressBar progress_circular;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-    ImageView mentore_img,image_v1,bookmark_svgs;
+    ImageView mentore_img,image_v1,bookmark_svgs, back_btn;
     TextView views_num,Title_txt,discrepition,hourse_of,no_of_lessions,num_resoursces,cours_amount;
 
     @Override
@@ -73,6 +73,8 @@ public class CourseDetailActivity extends AppCompatActivity {
         enroll_linear = findViewById(R.id.enroll_linear);
         bookmark_svgs = findViewById(R.id.bookmark_svgs);
         continue_btn = findViewById(R.id.continue_btn);
+        back_btn = findViewById(R.id.back_btn);
+
         sharedPreferencesData = SharedPreferencesData.getInstance(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(CourseDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
 
@@ -91,6 +93,14 @@ public class CourseDetailActivity extends AppCompatActivity {
                 String extractedNumber = amt.replaceAll("[^0-9]", "");
                 open_payment_notifaiction_dilog(sharedPreferencesData.getUSER_id(), Course_id,extractedNumber);
 
+            }
+        });
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(CourseDetailActivity.this, MainActivity.class);
+                startActivity(intent1);
             }
         });
 

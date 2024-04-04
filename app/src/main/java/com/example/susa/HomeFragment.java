@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
     RecyclerView cat_rec, course_rec, mentor_rec;
     CatagoriesAdapter catagoriesAdapter;
     SharedPreferencesData sharedPreferencesData;
-    TextView see_all;
+    TextView see_all, see_all_resources;
     LinearLayout search_bar;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -105,6 +105,7 @@ public class HomeFragment extends Fragment {
         course_rec = view.findViewById(R.id.course_rec);
         mentor_rec = view.findViewById(R.id.mentor_rec);
         see_all = view.findViewById(R.id.see_all);
+        see_all_resources = view.findViewById(R.id.see_all_resources);
         search_bar = view.findViewById(R.id.search_bar);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -122,6 +123,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),SearchCourseActivity.class);
+                startActivity(intent);
+            }
+        });
+        see_all_resources.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),SearchResources.class);
                 startActivity(intent);
             }
         });
@@ -197,7 +205,8 @@ public class HomeFragment extends Fragment {
     private void getmentors(String user_id) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("user_id",user_id);
-        Call<JsonObjectModalResponse> call = apiInterface.top_mentors(jsonObject);
+        jsonObject.addProperty("limit","no");
+        Call<JsonObjectModalResponse> call = apiInterface.top_resources(jsonObject);
         call.enqueue(new Callback<JsonObjectModalResponse>() {
             @Override
             public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {

@@ -54,4 +54,12 @@ public interface ApiInterface {
     @POST("similar_course")
     Call<JsonObjectModalResponse> similar_course(@Body JsonObject requestBody);
 
+    @POST("top_resources")
+    Call<JsonObjectModalResponse> top_resources(@Body JsonObject requestBody);
+
+    @POST("update_download_count")
+    Call<JsonObjectModalResponse> update_download_count(@Body JsonObject requestBody);
+
+
+
 }
