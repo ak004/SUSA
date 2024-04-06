@@ -39,9 +39,9 @@ public class VideoContentActivity extends AppCompatActivity {
     RecyclerView attachments_rec;
     AttachmentsAdapter attachmentsAdapter;
     SharedPreferencesData sharedPreferencesData;
-    ImageView play_vid, vid_men;
+    ImageView play_vid, vid_men, back_btn;
     TextView vid_name,vid_desc;
-    String vid_id, vid_url, is_last;
+    String vid_id, vid_url, is_last, course_id;
     ProgressBar progress_circular;
     KonfettiView congragulation_view;
     AppCompatButton completed_btn,ask_ai_btn;
@@ -62,6 +62,7 @@ public class VideoContentActivity extends AppCompatActivity {
         completed_btn = findViewById(R.id.completed_btn);
         ask_ai_btn = findViewById(R.id.ask_ai_btn);
         congragulation_view = findViewById(R.id.congragulation_view);
+        back_btn = findViewById(R.id.back_btn);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         attachments_rec.setLayoutManager(layoutManager);
 
@@ -77,6 +78,13 @@ public class VideoContentActivity extends AppCompatActivity {
                 }
                 ine.putExtra("the_path",vid_url);
                 startActivity(ine);
+            }
+        });
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
         completed_btn.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +107,7 @@ public class VideoContentActivity extends AppCompatActivity {
         Intent intent = getIntent();
         vid_id = intent.getStringExtra("vid_id");
         is_last = intent.getStringExtra("is_it_last");
+        course_id = intent.getStringExtra("course_id");
         if(is_last.equalsIgnoreCase("1")) {
             completed_btn.setVisibility(View.VISIBLE);
         }else {
@@ -106,6 +115,17 @@ public class VideoContentActivity extends AppCompatActivity {
         }
         progress_circular.setVisibility(View.VISIBLE);
         get_course_details(vid_id, sharedPreferencesData.getUSER_id());
+
+
+
+        ask_ai_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(VideoContentActivity.this,chatActivity.class);
+                intent1.putExtra("course_id", course_id);
+                startActivity(intent1);
+            }
+        });
 
     }
 

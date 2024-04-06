@@ -61,6 +61,7 @@ public class LessonsAdapter extends RecyclerView.Adapter<LessonsAdapter.ViewHold
                 Intent intent = new Intent(context, VideoContentActivity.class);
                 intent.putExtra("vid_id", listItem.get("_id").getAsString());
                 intent.putExtra("is_it_last", is_it_last);
+                intent.putExtra("course_id", listItem.get("module_id").getAsString());
                 context.startActivity(intent);
             }
         });

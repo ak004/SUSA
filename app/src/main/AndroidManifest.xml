@@ -26,6 +26,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".chatActivity"
+            android:exported="false" />
+        <activity
             android:name=".SearchResources"
             android:exported="false" />
         <activity

@@ -37,7 +37,7 @@ public class LessonsActivity extends AppCompatActivity {
     SharedPreferencesData sharedPreferencesData;
     String Course_id;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-    ImageView mento_img,course_img;
+    ImageView mento_img,course_img,back_btn;
     TextView title,deese,views,amount;
 
     @Override
@@ -54,6 +54,7 @@ public class LessonsActivity extends AppCompatActivity {
         deese= findViewById(R.id.deese);
         views= findViewById(R.id.views);
         amount= findViewById(R.id.amount);
+        back_btn = findViewById(R.id.back_btn);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         lessons_rec.setLayoutManager(layoutManager);
@@ -65,6 +66,13 @@ public class LessonsActivity extends AppCompatActivity {
         Course_id = intent.getStringExtra("course_id");
 
         get_course_details(Course_id, sharedPreferencesData.getUSER_id());
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+        <TextView
+            android:id="@+id/user_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_bottom_nav"
+            android:text="your message goes here"
+            android:paddingHorizontal="15dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:layout_margin="10dp"
+            android:layout_gravity="right"
+            android:paddingVertical="10dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/mentor_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_bottom_nav"
+            android:text="Ai message goes here"
+            android:paddingHorizontal="15dp"
+            android:backgroundTint="@color/color_accent"
+            android:layout_margin="10dp"
+            android:layout_gravity="left"
+            android:paddingVertical="10dp"
+            android:textColor="@color/white"/>
+
+</LinearLayout>

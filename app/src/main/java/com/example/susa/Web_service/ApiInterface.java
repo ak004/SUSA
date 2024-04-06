@@ -60,6 +60,10 @@ public interface ApiInterface {
     @POST("update_download_count")
     Call<JsonObjectModalResponse> update_download_count(@Body JsonObject requestBody);
 
+    @POST("get_chats")
+    Call<JsonObjectModalResponse> get_chats(@Body JsonObject requestBody);
 
+    @POST("send_chat")
+    Call<JsonObjectModalResponse> send_chat(@Body JsonObject requestBody);
 
 }
