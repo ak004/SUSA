@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
                 if (response.body().isSuccess()) {
+
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     sharedPreferencesData.putuser_id("");
                     sharedPreferencesData.putuser_id(response.body().getRecord().get("user").getAsJsonObject().get("_id").getAsString());

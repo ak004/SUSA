@@ -27,8 +27,8 @@ public class    ApiClient {
 //    private static String BASE_URL = "http://192.168.1.8:3000/api/";
 //    public static String Base_image_url = "http://192.168.1.8:3000/";
 
-    private static String BASE_URL = "http://192.168.100.55:3000/api/";
-    public static String Base_image_url = "http://192.168.100.55:3000/";
+    private static String BASE_URL = "http://192.168.137.1:3000/api/";
+    public static String Base_image_url = "http://192.168.137.1:3000/";
 
 //    private static String BASE_URL = "http://susa.mascud.me/api/";
 //    public static String Base_image_url = "http://susa.mascud.me/";

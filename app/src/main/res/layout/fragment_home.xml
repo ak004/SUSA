@@ -31,14 +31,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Welcome,"
+                    android:text="Welcome"
+                    android:layout_gravity="center"
                     android:textColor="@color/green" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Mascud Musse Hassan"
+                    android:text="Enjoy your learning"
                     android:textColor="@color/blue"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -248,7 +249,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Trending Course "
+                        android:text="Trending Resources"
                         android:layout_weight="1"
                         android:textColor="@color/black"
                         android:fontFamily="@font/roboto_bold"
