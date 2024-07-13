@@ -64,6 +64,30 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         return ja.size();
     }
 
+
+
+    public void addMessage(JsonObject message) {
+        ja.add(message);
+        notifyItemInserted(ja.size() - 1);
+    }
+
+    public void removeMessage(JsonObject message) {
+        int index = findMessageIndex(message);
+        if (index != -1) {
+            ja.remove(index);
+            notifyItemRemoved(index);
+        }
+    }
+
+    private int findMessageIndex(JsonObject message) {
+        for (int i = 0; i < ja.size(); i++) {
+            if (ja.get(i).equals(message)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView user_msg, mentor_msg;

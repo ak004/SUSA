@@ -63,6 +63,7 @@
               </androidx.cardview.widget.CardView>
 
               <TextView
+                  android:id="@+id/username_txt"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:text="Mascud Musse Hassan"
@@ -74,6 +75,7 @@
                   android:textSize="22dp"
                   android:layout_marginTop="10dp"/>
               <TextView
+                  android:id="@+id/email_txt"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:text="mascud@simad.edu.so"
@@ -85,37 +87,37 @@
 
 
 
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_margin="20dp"
-                  android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/setting_svg"
-                        app:tint="@color/colorPrimaryDark"
-                        android:layout_marginRight="40dp"
-                        />
+<!--              <LinearLayout-->
+<!--                  android:layout_width="match_parent"-->
+<!--                  android:layout_height="wrap_content"-->
+<!--                  android:layout_margin="20dp"-->
+<!--                  android:orientation="horizontal">-->
+<!--                    <ImageView-->
+<!--                        android:layout_width="40dp"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:src="@drawable/setting_svg"-->
+<!--                        app:tint="@color/colorPrimaryDark"-->
+<!--                        android:layout_marginRight="40dp"-->
+<!--                        />-->
 
-                  <TextView
-                      android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:text="User details"
-                      android:layout_weight="1"
-                      android:textStyle="bold"
-                      android:textColor="@color/black"
-                      android:fontFamily="@font/roboto_medium"
-                      android:layout_gravity="center"
-                      />
+<!--                  <TextView-->
+<!--                      android:layout_width="0dp"-->
+<!--                      android:layout_height="wrap_content"-->
+<!--                      android:text="User details"-->
+<!--                      android:layout_weight="1"-->
+<!--                      android:textStyle="bold"-->
+<!--                      android:textColor="@color/black"-->
+<!--                      android:fontFamily="@font/roboto_medium"-->
+<!--                      android:layout_gravity="center"-->
+<!--                      />-->
 
-                  <ImageView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:src="@drawable/baseline_arrow_forward_ios_24"
-                      android:layout_gravity="center"/>
-                  
-              </LinearLayout>
+<!--                  <ImageView-->
+<!--                      android:layout_width="wrap_content"-->
+<!--                      android:layout_height="wrap_content"-->
+<!--                      android:src="@drawable/baseline_arrow_forward_ios_24"-->
+<!--                      android:layout_gravity="center"/>-->
+<!--                  -->
+<!--              </LinearLayout>-->
 
               <LinearLayout
                   android:id="@+id/paymentinfo_btn"

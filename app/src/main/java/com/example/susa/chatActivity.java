@@ -1,10 +1,12 @@
 package com.example.susa;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -82,14 +84,22 @@ public class chatActivity extends AppCompatActivity {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("user_id",userId);
         jsonObject.addProperty("course_id",courseId);
+        jsonObject.addProperty("type_user","user");
         jsonObject.addProperty("msg",message);
         Call<JsonObjectModalResponse> call = apiInterface.send_chat(jsonObject);
+        question_txt.setText(""); // Clear the text
+        hideKeyboard(question_txt); // Hide the keyboard
+        chatAdapter.addMessage(jsonObject);
+        send_btn.setClickable(false);
+
         call.enqueue(new Callback<JsonObjectModalResponse>() {
             @Override
             public void onResponse(Call<JsonObjectModalResponse> call, Response<JsonObjectModalResponse> response) {
                 if (response.isSuccessful()) {
+                    chatAdapter.removeMessage(jsonObject);
                     getChatApi(userId,courseId);
                     question_txt.setText("");
+                    send_btn.setClickable(true);
                 }else {
                     Toast.makeText(chatActivity.this, "Count send your message try again", Toast.LENGTH_SHORT).show();
                 }
@@ -97,9 +107,17 @@ public class chatActivity extends AppCompatActivity {
             //check something
             @Override
             public void onFailure(Call<JsonObjectModalResponse> call, Throwable t) {
+                chatAdapter.removeMessage(jsonObject);
                 Log.d("sliding_category", t.getMessage());
             }
         });
+    }
+
+    private void hideKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 

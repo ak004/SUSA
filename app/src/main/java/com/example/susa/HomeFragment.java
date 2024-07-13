@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
     RecyclerView cat_rec, course_rec, mentor_rec;
     CatagoriesAdapter catagoriesAdapter;
     SharedPreferencesData sharedPreferencesData;
-    TextView see_all, see_all_resources;
+    TextView see_all, see_all_resources, username_txt;
     LinearLayout search_bar;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -107,6 +107,7 @@ public class HomeFragment extends Fragment {
         see_all = view.findViewById(R.id.see_all);
         see_all_resources = view.findViewById(R.id.see_all_resources);
         search_bar = view.findViewById(R.id.search_bar);
+        username_txt = view.findViewById(R.id.username_txt);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -119,6 +120,7 @@ public class HomeFragment extends Fragment {
         getCourses(sharedPreferencesData.getUSER_id());
 
         getmentors(sharedPreferencesData.getUSER_id());
+        username_txt.setText(sharedPreferencesData.getUsername());
         see_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.susa.Adapter.CatagoriesAdapter;
@@ -48,6 +49,7 @@ public class SettingFragment extends Fragment {
     SharedPreferencesData sharedPreferencesData;
 
     private LinearLayout qr_code_linear,logout_btn, contactus_btn,aboutus_btn,paymentinfo_btn;
+    private TextView username_txt, email_txt;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -101,8 +103,11 @@ public class SettingFragment extends Fragment {
         contactus_btn = view.findViewById(R.id.contactus_btn);
         aboutus_btn = view.findViewById(R.id.aboutus_btn);
         paymentinfo_btn = view.findViewById(R.id.paymentinfo_btn);
+        username_txt = view.findViewById(R.id.username_txt);
+        email_txt = view.findViewById(R.id.email_txt);
 
-
+        username_txt.setText(sharedPreferencesData.getUsername());
+        email_txt.setText(sharedPreferencesData.getUserEmail());
         qr_code_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

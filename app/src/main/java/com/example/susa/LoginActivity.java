@@ -80,6 +80,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     sharedPreferencesData.putuser_id("");
+                    sharedPreferencesData.putUserEmail(response.body().getRecord().get("user").getAsJsonObject().get("email").getAsString());
+                    sharedPreferencesData.putusername(response.body().getRecord().get("user").getAsJsonObject().get("user_name").getAsString());
                     sharedPreferencesData.putuser_id(response.body().getRecord().get("user").getAsJsonObject().get("_id").getAsString());
                     startActivity(i);
 
